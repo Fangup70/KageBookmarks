@@ -10,13 +10,18 @@ export default function LoginPage() {
   const handleLogin = async () => {
     setLoading(true)
     const supabase = createClient()
+    
+    // Check if user was explicitly signed out (URL param)
+    const wasSignedOut = new URLSearchParams(window.location.search).get('signed_out') === 'true'
+    
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
          redirectTo: `${location.origin}/auth/callback`,
          queryParams: {
            access_type: 'offline',
-           prompt: 'consent',
+           // Only force account selection if user explicitly signed out
+           prompt: wasSignedOut ? 'select_account' : 'consent',
          },
       },
     })

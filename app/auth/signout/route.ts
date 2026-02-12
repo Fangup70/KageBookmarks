@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     }
   })
 
-  const response = NextResponse.redirect(`${requestUrl.origin}/login`, {
+  const response = NextResponse.redirect(`${requestUrl.origin}/login?signed_out=true`, {
     status: 302,
   })
   
