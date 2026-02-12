@@ -1,12 +1,7 @@
 'use client'
 
-import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
 import { LogOut, Bookmark } from 'lucide-react'
 import { type User } from '@supabase/supabase-js'
-
-export default function Navbar({ user }: { user: User | null }) {
-  const router = useRouter()
 import { signOutAction } from '@/app/auth/actions'
 
 export default function Navbar({ user }: { user: User | null }) {
