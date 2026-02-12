@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { type NextRequest, NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url)
@@ -12,7 +13,7 @@ export async function GET(request: NextRequest) {
   const cookieStore = await cookies()
   const allCookies = cookieStore.getAll()
   
-  allCookies.forEach((cookie) => {
+  allCookies.forEach((cookie: { name: string }) => {
     if (cookie.name.startsWith('sb-')) {
       cookieStore.delete(cookie.name)
     }
