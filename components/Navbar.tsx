@@ -2,14 +2,14 @@
 
 import { LogOut, Bookmark } from 'lucide-react'
 import { type User } from '@supabase/supabase-js'
-import { signOutAction } from '@/app/auth/actions'
 
 export default function Navbar({ user }: { user: User | null }) {
   // const router = useRouter() // No longer needed for sign out navigation
   // const supabase = createClient() // No longer needed for sign out
 
   const handleSignOut = async () => {
-    await signOutAction()
+    // Full page navigation to ensure clean state
+    window.location.href = '/auth/signout'
   }
 
   return (

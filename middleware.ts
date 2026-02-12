@@ -1,7 +1,12 @@
-import { type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
+  // Skip session refresh for sign-out route to allow clean logout
+  if (request.nextUrl.pathname === '/auth/signout') {
+    return NextResponse.next()
+  }
+
   return await updateSession(request)
 }
 

@@ -1,14 +1,14 @@
-'use server'
-
 import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
-import { cookies } from 'next/headers'
+import { type NextRequest, NextResponse } from 'next/server'
 
-export async function signOutAction() {
+export async function GET(request: NextRequest) {
+  const requestUrl = new URL(request.url)
   const supabase = await createClient()
+
+  // Sign out from Supabase
   await supabase.auth.signOut()
-  
-  // Force delete cookies to ensure clean sign out
+
+  // Force delete cookies
   const cookieStore = await cookies()
   const allCookies = cookieStore.getAll()
   
@@ -18,5 +18,5 @@ export async function signOutAction() {
     }
   })
 
-  return redirect('/login')
+  return NextResponse.redirect(`${requestUrl.origin}/login`)
 }
