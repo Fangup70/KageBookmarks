@@ -7,12 +7,14 @@ import { type User } from '@supabase/supabase-js'
 
 export default function Navbar({ user }: { user: User | null }) {
   const router = useRouter()
-  const supabase = createClient()
+import { signOutAction } from '@/app/auth/actions'
+
+export default function Navbar({ user }: { user: User | null }) {
+  // const router = useRouter() // No longer needed for sign out navigation
+  // const supabase = createClient() // No longer needed for sign out
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    router.replace('/login')
-    router.refresh()
+    await signOutAction()
   }
 
   return (
