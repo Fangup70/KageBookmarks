@@ -1,14 +1,16 @@
 'use client'
 
+import { createClient } from '@/lib/supabase/client'
 import { LogOut, Bookmark } from 'lucide-react'
 import { type User } from '@supabase/supabase-js'
 
-export default function Navbar({ user }: { user: User | null }) {
-  // const router = useRouter() // No longer needed for sign out navigation
-  // const supabase = createClient() // No longer needed for sign out
-
   const handleSignOut = async () => {
-    // Full page navigation to ensure clean state
+    // 1. Clear any client-side state/cookies first
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    localStorage.clear()
+
+    // 2. Full page navigation to server-side nuking route
     window.location.href = '/auth/signout'
   }
 
