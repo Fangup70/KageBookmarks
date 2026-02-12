@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/client'
 import { LogOut, Bookmark } from 'lucide-react'
 import { type User } from '@supabase/supabase-js'
 
+export default function Navbar({ user }: { user: User | null }) {
   const handleSignOut = async () => {
     // 1. Clear any client-side state/cookies first
     const supabase = createClient()
